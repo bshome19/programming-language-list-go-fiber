@@ -2,18 +2,24 @@ package handlers
 
 import (
 	"net/http"
-	"github.com/bshome19/programming-language-list-go-fiber"
 	"github.com/gofiber/fiber/v2"
-	"github.com/bshome19/models"
+	"github.com/bshome19/programming-language-list-go-fiber/models"
+
 )
 
+var Languages = []models.ProgrammingLanguage{
+	{Id: "1", Language: "C", Creator: "Dennis Ritchie"},
+	{Id: "2", Language: "Java", Creator: "James Gosling"},
+	{Id: "3", Language: "C++", Creator: " Bjarne Stroustrup"},
+	{Id: "4", Language: "Python", Creator: "Guido van Rossum"},
+}
 
 func GetAllLanguagesData(c *fiber.Ctx) error {
 	return c.Status(http.StatusOK).JSON(Languages)
 }
 
 func CreateNewLanguageData(c *fiber.Ctx) error {
-	var language ProgrammingLanguage
+	var language models.ProgrammingLanguage
 
 	if err := c.BodyParser(&language); err != nil {
 		c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": err.Error()})
@@ -38,7 +44,7 @@ func DeleteLanguageById(c *fiber.Ctx) error {
 
 func UpdateLanguageDataById(c *fiber.Ctx) error {
 	id := c.Params("id")
-	var updatedlanguage ProgrammingLanguage
+	var updatedlanguage models.ProgrammingLanguage
 	updatedlanguage.Id = id 
 
 	if err := c.BodyParser(&updatedlanguage); err != nil {

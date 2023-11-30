@@ -2,18 +2,11 @@ package main
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/bshome19/models"
-	"github.com/bshome19/handlers"
+	"github.com/bshome19/programming-language-list-go-fiber/handlers"
 )
 
 
 
-var Languages = []ProgrammingLanguage{
-	{Id: "1", Language: "C", Creator: "Dennis Ritchie"},
-	{Id: "2", Language: "Java", Creator: "James Gosling"},
-	{Id: "3", Language: "C++", Creator: " Bjarne Stroustrup"},
-	{Id: "4", Language: "Python", Creator: "Guido van Rossum"},
-}
 
 func main() {
 	app := fiber.New()
@@ -22,13 +15,13 @@ func main() {
 		return c.SendString("Hello, Coders! Welcome to Go programming language.")
 	})
 
-	app.Get("/languages", )
+	app.Get("/languages", handlers.GetAllLanguagesData)
 
-	app.Post("/languages", )
+	app.Post("/languages", handlers.CreateNewLanguageData)
 
-	app.Delete("/languages/:id", )
+	app.Delete("/languages/:id", handlers.DeleteLanguageById)
 
-	app.Put("/languages/:id", )
+	app.Put("/languages/:id", handlers.UpdateLanguageDataById)
 
 	app.Listen(":8080")
 }
